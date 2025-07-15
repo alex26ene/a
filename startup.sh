@@ -1,10 +1,10 @@
-# Define your regions (replace with your chosen regions)
+
 REGION_1="us-central1"
 REGION_2="us-east1"
 ZONE_1="${REGION_1}-a" # Example zone in Region 1
 ZONE_2="${REGION_2}-b" # Example zone in Region 2
 
-# Configure the instance template for Region 1
+
 gcloud compute instance-templates create Region-1-template \
     --machine-type=e2-micro \
     --network=default \
@@ -13,15 +13,6 @@ gcloud compute instance-templates create Region-1-template \
     --metadata-from-file=startup-script=startup.sh \
     --description="Instance template for Region 1"
 
-# Create a dummy startup.sh file for the instance template (if not already present)
-# In a real scenario, you'd download the script or include its content directly.
-# For this lab, assume gs://cloud-training/gcpnet/httplb/startup.sh is accessible.
-# You can use `curl -o startup.sh gs://cloud-training/gcpnet/httplb/startup.sh` if needed.
-# For simplicity in this gcloud script, we're assuming the file is handled by the metadata-from-file or the URL in the lab.
-# The lab specifies a URL: gs://cloud-training/gcpnet/httplb/startup.sh
-
-# Configure the instance template for Region 2 (similar to Region 1 but in a different subnet/region context)
-# Note: For simplicity and since the lab creates it by copying, we'll make it explicit.
 gcloud compute instance-templates create Region-2-template \
     --machine-type=e2-micro \
     --network=default \
@@ -135,13 +126,6 @@ gcloud compute instances create siege-vm \
     --boot-disk-size=10GB \
     --scopes=https://www.googleapis.com/auth/cloud-platform
 
-# SSH into siege-vm to run siege
-# gcloud compute ssh siege-vm --zone="${ZONE_3}"
-
-# Inside the siege-vm SSH session, run:
-# sudo apt-get -y install siege
-# export LB_IP=<YOUR_LB_IPV4_ADDRESS>
-# siege -c 150 -t120s http://$LB_IP
 
 
 # Get the external IP of the siege-vm (run after siege-vm creation)
